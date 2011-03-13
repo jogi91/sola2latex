@@ -1,0 +1,96 @@
+%Klimbim für die Formatierung
+\documentclass[12pt]{article}
+\usepackage[a4paper,naturalnames]{hyperref}
+\usepackage[utf8]{inputenc}  
+\usepackage[german]{babel}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage{lastpage} % Für Seitenanzahl
+\usepackage{calc}
+
+%Tabellen
+\usepackage{tabularx}
+\usepackage{paralist} % Für die Aufzählungen in den Tabellen, ermöglicht kurzen abstand
+\usepackage{longtable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parskip}{0.5ex}%
+\setlength{\parindent}{0pt}%
+%\renewcommand{\baselinestretch}{1.5}%
+%
+
+\oddsidemargin -10.4mm
+\evensidemargin -10.4mm
+\textwidth 18cm
+\headheight 20mm
+\topmargin -23mm
+\textheight 222mm
+\setlength{\tabcolsep}{0.25cm}
+\setlength{\arrayrulewidth}{1pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Kopf und Fusszeilen
+\pagestyle{fancy}
+\newcommand{\tstamp}{DATUM}
+\fancyhf{}
+\lhead{\sf LA X.Y}
+\chead{Solablocktitel}
+\rhead{\sf LOGOS J+S, JUBLA ZUFIKON}
+\cfoot{\thepage / \pageref{LastPage}}
+\rfoot{\sf \tstamp}
+\lfoot{\sf Sommerlager 2010 Stoos}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+%Zeilenabstand 1.5
+\onehalfspacing 
+\begin{document}
+\section*{Blockbeschrieb}
+	\begin{tabular}{|p{2.5cm}|p{5.5cm}|p{2.5cm}|p{5.5cm}|}
+	\hline
+	Blockname: 	& BLOCKNAME	& J+S-Nummer	& NUMMER \\ \hline
+	Leitung:		& LEITUNG		& Teilnehmer:	& TEILNEHMER \\ \hline
+	Ort:			& ORT			& Datum:		& \tstamp \\ \hline
+	Material:		& MATERIAL		& Zeit:		& Zeit \\ \hline
+	Ziele:		&  \multicolumn{3}{p{13.5cm+4\tabcolsep+2\arrayrulewidth}|}{\begin{compactitem} % Compactitem ergibt eine Liste
+		\item Aufz\"ahlungpunkt
+		\item Aufz\"ahlungpunkt
+ 		\item Aufz\"ahlungpunkt mit wirklich sehr langem text, wirkliech viel und noch mehr, sodass die Zeile umbricht und ich sehe was passieren wird. % Hier sind die blöden Umbrüche
+ 	\end{compactitem}} \\
+	\hline
+\end{tabular}
+
+
+
+\begin{tabular}{|p{17.5cm+3\arrayrulewidth}|}
+	\hline
+	\parbox[0pt][1.5cm][c]{0cm}{\section*{Sicherheitskonzept}}\\
+	\hline
+	\begin{compactitem}
+		 \item Aufz\"ahlungpunkt
+		 \item Aufz\"ahlungpunkt
+ 		\item Aufz\"ahlungpunkt mit wirklich sehr langem text, wirkliech viel und noch mehr, sodass die Zeile umbricht und ich sehe was passieren wird.
+ 	\end{compactitem}\\
+ 	\hline 
+\end{tabular}
+
+\begin{longtable}{|p{12cm}|p{5cm+2\arrayrulewidth}|}
+	\hline 
+	\bf Blockbeschrieb & \bf Bemerkungen \\ \hline 
+	\endfirsthead \hline \bf Blockbeschrieb & \bf Bemerkungen \\ \hline 
+	\endhead \hline 
+	\multicolumn{2}{|c|}{Fortsetzung auf nächster Seite.} \\ \hline 
+	\endfoot
+	\endlastfoot 
+	Putamus parum claram anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima? Quod mazim placerat facer possim assum typi non habent claritatem. Consuetudium lectorum mirum est notare quam littera gothica quam nunc eodem modo typi.
+Putamus parum claram anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima? Quod mazim placerat facer possim assum typi non habent claritatem. Consuetudium lectorum mirum est notare quam littera gothica quam nunc eodem modo typi. & \\
+Putamus parum claram anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima? Quod mazim placerat facer possim assum typi non habent claritatem. Consuetudium lectorum mirum est notare quam littera gothica quam nunc eodem modo typi. &
+\\
+Putamus parum claram anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima? Quod mazim placerat facer possim assum typi non habent claritatem. Consuetudium lectorum mirum est notare quam littera gothica quam nunc eodem modo typi.
+Putamus parum claram anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima? Quod mazim placerat facer possim assum typi non habent claritatem. Consuetudium lectorum mirum est notare quam littera gothica quam nunc eodem modo typi.
+Putamus parum claram anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima? Quod mazim placerat facer possim assum typi non habent claritatem. Consuetudium lectorum mirum est notare quam littera gothica quam nunc eodem modo typi.
+ & seacula quarta decima. Iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla? Adipiscing elit sed diam nonummy nibh euismod tincidunt ut laoreet dolore? Aliquip ex ea commodo consequat duis autem vel eum iriure dolor in. \\ \hline
+
+	\end{longtable}
+\end{document}
