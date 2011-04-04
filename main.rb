@@ -1,12 +1,10 @@
 require "Kopierer"
 $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable => true) do
   datenhandler = Kopierer.new
+  #Hauptflow, hier kommt alles rein
   flow(:scroll => false, :width => 800, :height => 800) do
 
-    #editor, wird am Anfang noch nicht angezeigt
-    @editor = stack(:width => 800, :height => 800, :hidden => false) do
-      banner "Editor", :align => "center"
-    end
+
 
     #Warnhinweis 
     @hinweis = stack(:width => 800, :height => 800) do
@@ -29,32 +27,6 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
         }
         datenhandler.basisparameterwerte = parameterwerte #Die Parameterwerte werden in den Kopierer geladen
 
-        #Ziele-Fenster
-        dialog(:title => "Blockziele", :height => 320) do
-          ziele = Array.new
-          stack(:margin_left => '10%', :left => '-5%') do
-            title "Blockziele"
-            para "Hier werden die Ziele eingegeben. Bitte immer nur ein Ziel in die Textbox kopieren und den hinzufügen-Button drücken. Wenn man das letzte Ziel eingegeben hat, kann der Vorgang durch klicken auf Fertig abgeschlossen werden."
-            ziel = edit_box(:width => 1.0)
-            keypress do |k|
-              debug ziel.inspect
-              if k == :alt_v
-                ziel.text += self.clipboard
-              end
-            end
-            flow do
-              button("hinzufügen"){
-                ziele.push ziel.text
-                ziel.text = ""
-              }
-              i = button("Fertig"){
-                debug ziele.inspect
-                datenhandler.ziele = ziele
-                close
-              }
-            end
-          end
-        end
         # 
         # #Ziele abfragen
         # ziele = Array.new
@@ -82,10 +54,10 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
         #   sicherheiten.push sicherheit
         #  end
         #  datenhandler.sicherheit = sicherheiten
-
-        debug @daten.inspect
-        debug datenhandler.inspect
+        debug "self vor dem removen"
+        debug self.inspect
         @hinweis.remove #Wenn die Daten Eingegeben wurden, Soll der Warnhinweis verschwinden
+        @zielestack.show
       }
       title "Blockdaten:"
       @knopf.style(:width => 100, :center => true)
@@ -93,7 +65,69 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
       para "test"
     end
     #Hinweis fertig
-
+    
+    #Ziele-Fenster
+    @zielestack = stack(:title => "Blockziele", :height => 800, :width => 800) do
+      ziele = Array.new
+      stack(:width => 800, :margin_left => 40, :margin_right => 40) do
+        title "Blockziele"
+        para "Hier werden die Ziele eingegeben. Bitte immer nur ein Ziel in die Textbox kopieren und den hinzufügen-Button drücken. Wenn man das letzte Ziel eingegeben hat, kann der Vorgang durch klicken auf Fertig abgeschlossen werden."
+        ziel = edit_box(:width => 1.0)
+        keypress do |k|
+          debug ziel.inspect
+          if k == :alt_v
+            ziel.text += self.clipboard
+          end
+        end
+        flow do
+          button("hinzufügen"){
+            ziele.push ziel.text
+            ziel.text = ""
+          }
+          i = button("Fertig"){
+            debug ziele.inspect
+            datenhandler.ziele = ziele
+            @zielestack.remove
+          }
+        end
+      end
+    end
+    #zielefenster fertig
+    
+    #Sicherheitskonzept-Fenster
+    @sicherheitskonzeptstack = stack(:title => "Blockziele", :height => 800, :width => 800) do
+      sicherheiten = Array.new
+      stack(:width => 800, :margin_left => 40, :margin_right => 40) do
+        title "Sicherheitskonzept"
+        para "Hier wird das Sicherheitskonzept eingegeben, etc. blabla."
+        sicherheit = edit_box(:width => 1.0)
+        keypress do |k|
+          if k == :alt_v
+            sicherheit.text += self.clipboard
+          end
+        end
+        flow do
+          button("hinzufügen"){
+            sicherheiten.push sicherheit.text
+            sicherheit.text = ""
+          }
+          i = button("Fertig"){
+            debug sicherheiten.inspect
+            datenhandler.sicherheit = sicherheiten
+            @sicherheitskonzeptstack.remove
+          }
+        end
+      end
+    end
+    
+    #editor, wird am Anfang noch nicht angezeigt
+    @editor = stack(:width => 800, :height => 800) do
+      banner "Editor", :align => "center"
+      flow{
+        button("Zeige Blockinfos"){}
+        button("Speichern"){}
+      }
+    end
 
 
     #@status = stack() # Hier sollten die Werte rein, die im Eingabefeld eingegeben worden sind.
