@@ -125,8 +125,13 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
       banner "Editor", :align => "center"
       flow{
         button("Zeige Blockinfos"){}
+        button("Hilfe"){}
+        button("Einstieg"){}
+        button("Hauptteil"){}
+        button("Schluss"){}
         button("Speichern"){}
       }
+      edit_box(:width => 1.0, :height => -100, )
     end
 
 
