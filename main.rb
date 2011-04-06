@@ -1,5 +1,5 @@
 require "Kopierer"
-$a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable => true) do
+$a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable => false) do
   datenhandler = Kopierer.new
   #Hauptflow, hier kommt alles rein
   flow(:scroll => false, :width => 800, :height => 800) do
@@ -121,21 +121,34 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
     end
     
     #editor, wird am Anfang noch nicht angezeigt
-    @editor = stack(:width => 800, :height => 800) do
+    @editor = stack(:width => 800, :height => 800, :margin_left => 40, :margin_right => 40) do
       banner "Editor", :align => "center"
-      flow{
-        button("Zeige Blockinfos"){}
-        button("Hilfe"){}
-        button("Einstieg"){}
-        button("Hauptteil"){}
-        button("Schluss"){}
-        button("Speichern"){}
-      }
-      edit_box(:width => 1.0, :height => -100, )
+      #Buttonleiste des Editors
+      flow do
+        buttons = Array.new
+        buttons[0] = button("Blockinfos"){}
+        buttons[1] = button("Hilfe"){}
+        buttons[2] = button("Einstieg"){
+          @sektion.replace("Einstieg")
+        }
+        buttons[3] = button("Hauptteil"){
+          @sektion.replace("Hauptteil")
+        }
+        buttons[4] = button("Schluss"){
+          @sektion.replace("Schluss")
+        }
+        buttons[5] = button("Speichern"){}
+        buttons.each{ |b|
+          b.style(:width => 120)
+        }
+      end
+      #Buttonleiste fertig
+      @sektion = caption "Einstieg"
+      text = edit_box(:width => 1.0, :height => 400)
+      bemerkungen = caption "Bemerkungen"
+      bemerkungstext = edit_box(:width => 1.0, :height => 200)
     end
 
-
-    #@status = stack() # Hier sollten die Werte rein, die im Eingabefeld eingegeben worden sind.
 
   end
 end
