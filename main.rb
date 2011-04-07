@@ -128,15 +128,57 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
         buttons = Array.new
         buttons[0] = button("Blockinfos"){}
         buttons[1] = button("Hilfe"){}
+        #Die folgenden drei Buttons switchen die Ansicht zwischen Einstieg, Hauptteil und Schluss. Der Text wird jeweils in den Datenhandler gespeichert und dann wieder rausgeholt
         buttons[2] = button("Einstieg"){
+          debug datenhandler.einstieg
+          case @sektion.text
+          when "Einstieg"
+            datenhandler.einstieg = @text.text
+            datenhandler.kommentare_einstieg = @bemerkungstext.text
+          when "Hauptteil"
+            datenhandler.hauptteil = @text.text
+            datenhandler.kommentare_hauptteil = @bemerkungstext.text
+          when "Ausstieg"
+            datenhandler.ausstieg = @text.text
+            datenhandler.kommentare_ausstieg = @bemerkungstext.text
+          end
           @sektion.replace("Einstieg")
+          @text.text = datenhandler.einstieg 
+          @bemerkungstext.text = datenhandler.kommentare_einstieg
         }
         buttons[3] = button("Hauptteil"){
+          case @sektion.text
+          when "Einstieg"
+            datenhandler.einstieg = @text.text
+            datenhandler.kommentare_einstieg = @bemerkungstext.text
+          when "Hauptteil"
+            datenhandler.hauptteil = @text.text
+            datenhandler.kommentare_hauptteil = @bemerkungstext.text
+          when "Ausstieg"
+            datenhandler.ausstieg = @text.text
+            datenhandler.kommentare_ausstieg = @bemerkungstext.text
+          end
+          @text.text = datenhandler.hauptteil
+          @bemerkungstext.text = datenhandler.kommentare_hauptteil
           @sektion.replace("Hauptteil")
         }
-        buttons[4] = button("Schluss"){
-          @sektion.replace("Schluss")
+        buttons[4] = button("Ausstieg"){
+          case @sektion.text
+          when "Einstieg"
+            datenhandler.einstieg = @text.text
+            datenhandler.kommentare_einstieg = @bemerkungstext.text
+          when "Hauptteil"
+            datenhandler.hauptteil = @text.text
+            datenhandler.kommentare_hauptteil = @bemerkungstext.text
+          when "Ausstieg"
+            datenhandler.ausstieg = @text.text
+            datenhandler.kommentare_ausstieg = @bemerkungstext.text
+          end
+          @text.text = datenhandler.ausstieg
+          @bemerkungstext.text = datenhandler.kommentare_ausstieg
+          @sektion.replace("Ausstieg")
         }
+        #
         buttons[5] = button("Speichern"){}
         buttons.each{ |b|
           b.style(:width => 120)
@@ -144,9 +186,9 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
       end
       #Buttonleiste fertig
       @sektion = caption "Einstieg"
-      text = edit_box(:width => 1.0, :height => 400)
+      @text = edit_box(:width => 1.0, :height => 400)
       bemerkungen = caption "Bemerkungen"
-      bemerkungstext = edit_box(:width => 1.0, :height => 200)
+      @bemerkungstext = edit_box(:width => 1.0, :height => 200)
     end
 
 
