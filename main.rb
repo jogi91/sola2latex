@@ -1,4 +1,6 @@
 require "Kopierer"
+require "tools"
+include Tools
 $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable => false) do
   datenhandler = Kopierer.new
   #Hauptflow, hier kommt alles rein
@@ -127,7 +129,7 @@ $a = Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resi
       flow do
         buttons = Array.new
         buttons[0] = button("Blockinfos"){}
-        buttons[1] = button("Hilfe"){}
+        buttons[1] = button("Hilfe"){display_help}
         #Die folgenden drei Buttons switchen die Ansicht zwischen Einstieg, Hauptteil und Schluss. Der Text wird jeweils in den Datenhandler gespeichert und dann wieder rausgeholt
         buttons[2] = button("Einstieg"){
           debug datenhandler.einstieg

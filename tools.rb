@@ -1,6 +1,9 @@
 module Tools
-  def test
-    puts "Hallo"
+  # Zeigt eine Hilfe zum editieren an
+  def display_help
+    dialog do
+      banner "Rettung Naht!"
+    end
   end
   
   
