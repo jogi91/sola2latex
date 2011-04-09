@@ -24,6 +24,8 @@ module Tools
         kopierer.sicherheit.each { |sicher| 
           para "- "+sicher
         }
+        title "Material"
+        para kopierer.material
       end
     end
   end

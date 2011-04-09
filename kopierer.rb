@@ -1,7 +1,7 @@
 #Diese Klasse soll den Vorlagentext komplett enthalten, da ich nicht davon ausgehen kann, dass der LaTeX-Code von Shoes mitgepackt wird.
 #Er wird die Daten entgegennehmen, sie komplett in den Block einfügen und den kompletten LaTeX-Code dann ausgeben können.
 class Kopierer
-  attr_accessor :basisparameter, :basisparameterwerte, :ziele, :sicherheit
+  attr_accessor :basisparameter, :basisparameterwerte, :ziele, :sicherheit, :material 
   attr_accessor :einstieg, :hauptteil, :ausstieg, :kommentare_einstieg, :kommentare_hauptteil, :kommentare_ausstieg
   def initialize
     @einstieg, @hauptteil, @ausstieg, @kommentare_einleitung, @kommentare_hauptteil, @kommentare_ausstieg = ""
@@ -21,7 +21,7 @@ class Kopierer
   
   
   def zusammensetzen
-    #Basisparameter ersetzen, Die Parameter aus dem Hauptfile werden in UPPERCASE umgewandelt und dann in der Vorlage ersetzt. So können später einfach neue Vorlagen definiert werden
+    #Basisparameter ersetzen, Die Parameter aus dem Hauptfile werden in UPPERCASE umgewandelt und dann in der Vorlage ersetzt. So können später einfach neue Vorlagen mit neuen Parametern definiert werden
     @basisparameterwerte.each_index do |i|
       debug @basisparameter[i].upcase
       debug @basisparameterwerte[i]

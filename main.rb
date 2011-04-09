@@ -21,43 +21,14 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
         parameterwerte = Array.new(parameter.size){String.new}
         debug parameterwerte.inspect
         parameter.each_index{|index|
-          debug index.inspect
           parameterwerte[index] = ask("#{parameter[index]}?")
           @hinweis.append do #Anderenfalls würden die paragraphs ausserhalb von @hinweis platziert werden.
             para "#{parameter[index]}: #{parameterwerte[index]}"
           end
         }
         datenhandler.basisparameterwerte = parameterwerte #Die Parameterwerte werden in den Kopierer geladen
-
-        # 
-        # #Ziele abfragen
-        # ziele = Array.new
-        # counter = 1
-        # while true
-        #  ziel = ask("Blockziel #{counter}, leerlassen für Ende")
-        #  counter += 1
-        #  if ziel == "" or ziel == nil
-        #    break
-        #  end
-        #  ziele.push ziel
-        # end
-        # datenhandler.ziele = ziele
-        # 
-        # #Sicherheitskonzept abfragen
-        #  alert("Nun wird das Sicherheitskonzept abgefragt. Jeder Punkt wird im Blockbeschrieb ein Teil einer Liste werden. Bitte entsprechend formulieren.")
-        #  sicherheiten = Array.new
-        #  counter = 1
-        #  while true
-        #   sicherheit = ask("Punkt Nr. #{counter}, leerlassen für Ende")
-        #   counter += 1
-        #   if sicherheit == "" or sicherheit == nil
-        #     break
-        #   end
-        #   sicherheiten.push sicherheit
-        #  end
-        #  datenhandler.sicherheit = sicherheiten
-        debug "self vor dem removen"
-        debug self.inspect
+        debug "Parameterwerte:"
+        debug parameterwerte.inspect
         @hinweis.remove #Wenn die Daten Eingegeben wurden, Soll der Warnhinweis verschwinden
         @zielestack.show
       }
@@ -121,6 +92,26 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
         end
       end
     end
+    #Sicherheitskonzeptfenster fertig
+    
+    #Material-Fenster
+    @materialstack = stack(:title => "Material", :height => 800, :width => 800) do
+      stack(:width => 800, :margin_left => 40, :margin_right => 40) do
+        title "Material"
+        para "Bitte hier das Material durch Kommas getrennt aufführen"
+        material = edit_box(:width => 1.0)
+        keypress do |k|
+          if k == :alt_v
+            material.text += self.clipboard
+          end
+        end
+        i = button("Fertig"){
+          datenhandler.material = material.text
+          @materialstack.remove
+        }
+      end
+    end
+    #Materialfenster fertig  
     
     #editor, wird am Anfang noch nicht angezeigt
     @editor = stack(:width => 800, :height => 800, :margin_left => 40, :margin_right => 40) do
