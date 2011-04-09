@@ -16,7 +16,7 @@ class Kopierer
     output.puts outputstring
     output.close
     debug "Output Closed"
-    #exit
+    exit
   end
   
   
@@ -27,6 +27,8 @@ class Kopierer
       debug @basisparameterwerte[i]
       @vorlage.gsub!(@basisparameter[i].upcase, @basisparameterwerte[i])
     end
+    #Material Einfüllen
+    @vorlage.gsub!(/MATERIAL/, @material)
     
     return @vorlage
   end
