@@ -181,7 +181,7 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
           @sektion.replace("Ausstieg")
         }
         #
-        buttons[5] = button("Speichern"){}
+        buttons[5] = button("Speichern"){datenhandler.speichern}
         buttons.each{ |b|
           b.style(:width => 120)
         }
