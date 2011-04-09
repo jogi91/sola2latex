@@ -172,7 +172,21 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
           @sektion.replace("Ausstieg")
         }
         #
-        buttons[5] = button("Speichern"){datenhandler.speichern}
+        buttons[5] = button("Speichern"){
+          #Den aktuellen Inhalt der Textboxen in den datenhandler kopieren, dann speichern
+          case @sektion.text
+          when "Einstieg"
+            datenhandler.einstieg = @text.text
+            datenhandler.kommentare_einstieg = @bemerkungstext.text
+          when "Hauptteil"
+            datenhandler.hauptteil = @text.text
+            datenhandler.kommentare_hauptteil = @bemerkungstext.text
+          when "Ausstieg"
+            datenhandler.ausstieg = @text.text
+            datenhandler.kommentare_ausstieg = @bemerkungstext.text
+          end
+          datenhandler.speichern
+        }
         buttons.each{ |b|
           b.style(:width => 120)
         }
