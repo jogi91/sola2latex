@@ -10,6 +10,7 @@ class Kopierer
   end  
   def speichern
     savefile = ask_save_file
+    savefile = savefile+".tex"
     output = File.open(savefile, 'w')
     outputstring = zusammensetzen
     output.puts outputstring
