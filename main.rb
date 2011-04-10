@@ -1,4 +1,4 @@
-require "Kopierer"
+require "kopierer"
 require "tools"
 include Tools
 Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable => false) do
