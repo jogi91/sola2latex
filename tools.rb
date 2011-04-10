@@ -6,7 +6,25 @@ module Tools
     end
   end
   
-  #
+  # prueft Basisblockdaten
+  def check_basics(parameter, wert)
+    case parameter
+    when "Zahl"
+      if wert.to_i.to_s == wert
+        return true
+      else
+        return false
+      end
+    # Wenn kein expliziter Test für einen Parameter existiert, nur leerstrings, oder nil zurückweisen
+    else
+      if wert == nil or wert == ""
+        return false
+      else 
+        return true
+      end
+    end
+  end
+  # Blockdaten anzeigen
   def display_data(kopierer)
     dialog do
       stack do

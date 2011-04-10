@@ -29,7 +29,17 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
         parameterwerte = Array.new(parameter.size){String.new}
         debug parameterwerte.inspect
         parameter.each_index{|index|
-          parameterwerte[index] = ask("#{parameter[index]}?")
+          begin
+            parameterwerte[index] = ask("#{parameter[index]}?")
+            if check_basics(parameter[index],parameterwerte[index]) == false
+              raise "Kein gültiger wert"
+            end
+          rescue
+            alert "Kein gültiger Wert eingegeben"
+            retry
+          end
+          
+          
           @hinweis.append do #Anderenfalls würden die paragraphs ausserhalb von @hinweis platziert werden.
             para "#{parameter[index]}: #{parameterwerte[index]}"
           end
