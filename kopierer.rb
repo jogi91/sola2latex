@@ -31,12 +31,12 @@ class Kopierer
     end
     
     #Material Einfüllen
-    @vorlage.gsub!(/MATERIAL/, @material)
+    @vorlage.gsub!(/MATERIAL/, escape_latex(@material))
     
     #Ziele Einfüllen
     zielstring = String.new
     @ziele.each do |ziel|
-      ziel = "\\item "+ziel+"\n\t\t" #\t sind Tabstops, damit der Tex-Code einigermassen lesbar bleibt
+      ziel = "\\item "+escape_latex(ziel)+"\n\t\t" #\t sind Tabstops, damit der Tex-Code einigermassen lesbar bleibt
       zielstring += ziel
     end
     zielstring.chomp!("\t\t") #Die letzten beiden Tabstops entfernen
@@ -45,19 +45,19 @@ class Kopierer
     #Sicherheitskonzept Einfüllen
     sicherheitskonzeptstring = String.new
     @sicherheit.each do |sicherheit|
-      sicherheit = "\\item "+sicherheit+"\n\t\t"
+      sicherheit = "\\item "+escape_latex(sicherheit)+"\n\t\t"
       sicherheitskonzeptstring += sicherheit
     end
     sicherheitskonzeptstring.chomp!("\t\t")
     @vorlage.gsub!(/\\item SICHERHEITSKONZEPT/, sicherheitskonzeptstring)
     
     #Einstieg einfüllen
-    einstiegsarray = @einstieg.split("\n") #An den Zeilenumbrüchen auseinandernehmen
+    einstiegsarray = escape_latex(@einstieg).split("\n") #An den Zeilenumbrüchen auseinandernehmen
     einstiegsstring = String.new
     if @kommentare_einstieg.length > 400 and @kommentare_einstieg.split("\n").size < einstiegsarray.size #Wenn es mehr Abschnitte in den Kommentaren als im Hauptteil gibt, nicht auseinandernehmen
-      kommentararray = @kommentare_einstieg.split("\n")
+      kommentararray = escape_latex(@kommentare_einstieg).split("\n")
     else
-      kommentararray = [@kommentare_einstieg]
+      kommentararray = [escape_latex(@kommentare_einstieg)]
     end 
     einstiegsarray.each_index do |i|
       if kommentararray[i] != nil
@@ -71,11 +71,12 @@ class Kopierer
     @vorlage.gsub!(/EINSTIEG &/, einstiegsstring)
     
     #Hauptteil einfüllen
-    hauptteilarray = @hauptteil.split("\n")
+    hauptteilarray = escape_latex(@hauptteil).split("\n")
     hauptteilstring = String.new
-    if @kommentare_hauptteil.length > 400 and @kommentare_hauptteil.split("\n").size < hauptteilarray.size 
+    if @kommentare_hauptteil.length > 400 and @kommentare_hauptteil.split("\n").size < hauptteilarray.size
+      kommentararray = escape_latex(@kommentare_hauptteil).split("\n")
     else
-      kommentararray = [@kommentare_hauptteil]
+      kommentararray = [escape_latex(@kommentare_hauptteil)]
     end 
     hauptteilarray.each_index do |i|
       if kommentararray[i] != nil
@@ -89,12 +90,12 @@ class Kopierer
     @vorlage.gsub!(/HAUPTTEIL &/, hauptteilstring)
     
     #Ausstieg einfüllen
-    ausstiegsarray = @ausstieg.split("\n") 
+    ausstiegsarray = escape_latex(@ausstieg).split("\n") 
     ausstiegsstring = String.new
     if @kommentare_ausstieg.length > 400 and @kommentare_ausstieg.split("\n").size < ausstiegsarray.size 
-      kommentararray = @kommentare_ausstieg.split("\n")
+      kommentararray = escape_latex(@kommentare_ausstieg).split("\n")
     else
-      kommentararray = [@kommentare_ausstieg]
+      kommentararray = [escape_latex(@kommentare_ausstieg)]
     end 
     ausstiegsarray.each_index do |i|
       if kommentararray[i] != nil
