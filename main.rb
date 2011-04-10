@@ -9,10 +9,18 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
 
 
     #Warnhinweis 
-    @hinweis = stack(:width => 800, :height => 800) do
+    @hinweis = stack(:width => 800, :height => 800, :margin_left => 40, :margin_right => 40, :margin_top => 20) do
       debug @editor.inspect
-      banner "Warnhinweis", :align => "center"
-      para "Dieses Programm wird so wie es ist, ohne jegliche Garantien von mir zur Verfügung gestellt. Es kann frei benutzt und weitergegeben werden."
+      flow do
+        banner "Solablock2LaTeX"
+        logo = image "Jublalogo.png"
+        logo.height = 75
+        logo.move(580,1)
+      end
+      para "Dieses Programm wird so wie es ist, ohne jegliche Garantien von mir zur Verfügung gestellt. Insbesondere wird keine Garantie für Datenverluste oder Programmabstürze übernommen."
+      para "Es kann frei benutzt, weitergegeben und verändert werden, solange es weiterhin frei für jeden nutzbar bleibt, auch mit den neuen Änderungen"
+      para "Der Zweck dieses Programms ist es, Sommerlagerblöcke nach den Vorlagen zu erstellen. Wenn alle Felder Ordnungsgemäss ausgefüllt werden, wird ein LaTeX-Dokument gespeichert, dass dann in eine PDF-Datei umgewandelt werden kann."
+      para link("Dieses Programm im Web", :click => "http://github.com/jogi91/sola2latex")
       @knopf = button("OK"){
         #Wenn der Knopf gedrückt wird, erste Werte einlesen
         # Werte für die Grundlegenden Blockdaten abfragen
@@ -35,7 +43,7 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
       title "Blockdaten:"
       @knopf.style(:width => 100, :center => true)
       @knopf.displace(350, 0)
-      para "test"
+
     end
     #Hinweis fertig
     

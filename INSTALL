@@ -45,4 +45,4 @@ $ cd shoes
 $ sudo gem install bundler
 $ sudo rake
 
-danach sollte sich shoes im Verzeichnis dist/ befinden. Es kann nun geöffnet werden und mit "Open an App" kann nun main.rb aus dem ordner sola2latex geöffnet werden.
+Danach sollte sich shoes im Verzeichnis dist/ befinden. Es kann nun geöffnet werden und mit "Open an App" kann nun main.rb aus dem ordner sola2latex geöffnet werden.
