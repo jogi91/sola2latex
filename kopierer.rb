@@ -109,4 +109,23 @@ class Kopierer
     
     return @vorlage
   end
+  
+  def escape_latex(string)
+    string.gsub!(/\\/,"\\textbackslash") #backslashes werden durch einen Backslash im fliesstext ersetzt
+    string.gsub!(/_/,"\\underline")
+    string.gsub!(/\[/,"\\lbrack")
+    string.gsub!(/\]/,"\\rbrack")
+    string.gsub!(/</,"\\langle")
+    string.gsub!(/>/,"\\rangle")
+    string.gsub!(/§/,"\\S")
+    string.gsub!(/\$/,"\\$")
+    string.gsub!(/&/,"\\&")
+    string.gsub!(/#/,"\\#")
+    string.gsub!(/\{/,"\\{")
+    string.gsub!(/\}/,"\\}")
+    string.gsub!(/%/,"\\%")
+    string.gsub!(/~/,"\\textasciitilde")
+    string.gsub!(/"/,"\"\'") #Das Anführungszeichen wird durch ein Anführungszeichen und einen Apostroph ersetzt
+    string.gsub!(/€/,"\\texteuro")
+  end
 end
