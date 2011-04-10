@@ -1,0 +1,48 @@
+Installationsanleitung für das sola2Latex Programm:
+
+WINDOWS + MAC:
+
+Folgende Adresse besuchen:
+http://shoes.heroku.com/downloads
+
+Shoes herunterladen und installieren, shoes öffnen, Open an App auswählen und main.rb in diesem Ordner öffnen.
+
+LINUX:
+
+Diese Anleitung stellt keinen Anspruch auf Vollständigkeit. Dies ist der Weg, den ich mir zusammengegoogelt habe und der auf meinem System (Ubuntu 10.04 auf dem 2.6.32-30-generic Kernel) funktioniert. Sollte es nicht funktionieren, sind die Fehlermeldungen zu lesen und mit googles Hilfe wird es sicher möglich sein, shoes zum laufen zu bekommen. Ausganspunkt war für mich folgende Webseite: https://github.com/shoes/shoes/wiki/Building-Shoes-on-Linux
+
+Im Terminal:
+$ ruby -v
+
+Wenn die Ausgabe ruby 1.9.2p*** ist, kann es auch so funktionieren, ich benutzte ruby 1.9.2p136 (2010-12-25 revision 30365) [i686-linux]. Ansonsten muss mit Hilfe von rvm die entsprechende Ruby-Version besorgt werden.
+
+rvm installieren:
+$ sudo bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+
+ruby installeren:
+$ sudo rvm install 1.9.2-p136
+
+per default das gerade installierte ruby nutzen:
+$ sudo rvm --default use 1.9.2-p136
+
+diverse dependencies:
+$ sudo apt-get install git-core libcairo2-dev libpixman-1-dev libpango1.0-dev libungif4-dev libjpeg62-dev libgtk2.0-dev vlc libvlc-dev portaudio19-dev libsqlite3-dev libcurl4-openssl-dev makeself curl libxslt-dev libxml2-dev
+
+ruby braucht eine openssl-Anbindung:
+$ cd usr/local/rvm/src/ruby-1.9.2-p136/ext/openssl/
+$ sudo ruby extconf.rb
+$ sudo make
+$ sudo make install
+
+$ cd usr/local/rvm/src/ruby-1.9.2-p136/ext/openssl/
+$ sudo ruby extconf.rb
+$ sudo make
+$ sudo make install
+
+Jetzt in beliebigem Ordner:
+$ git clone git://github.com/shoes/shoes.git 
+$ cd shoes
+$ sudo gem install bundler
+$ sudo rake
+
+danach sollte sich shoes im Verzeichnis dist/ befinden. Es kann nun geöffnet werden und mit "Open an App" kann nun main.rb aus dem ordner sola2latex geöffnet werden.
