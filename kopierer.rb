@@ -68,7 +68,6 @@ class Kopierer
       einstiegsstring += string
     end
     einstiegsstring.chomp!("\\\\\\ \n\n")
-    debug einstiegsstring.inspect
     @vorlage.gsub!(/EINSTIEG &/, einstiegsstring)
     
     #Hauptteil einfüllen
@@ -107,27 +106,28 @@ class Kopierer
     end
     ausstiegsstring.chomp!("\\\\\\ \n\n")
     @vorlage.gsub!(/AUSSTIEG &/, einstiegsstring)
-    
+    @vorlage.gsub!(/AMPERSAND/, "\\\\&") #Siehe Methode escape_latex
     return @vorlage
   end
   
   def escape_latex(string)
     string.gsub!(/\\/,"\\textbackslash") #backslashes werden durch einen Backslash im fliesstext ersetzt
-    string.gsub!(/_/,"\\underline")
-    string.gsub!(/\[/,"\\lbrack")
-    string.gsub!(/\]/,"\\rbrack")
-    string.gsub!(/</,"\\langle")
-    string.gsub!(/>/,"\\rangle")
-    string.gsub!(/\302\247/,"\\S") #Das §-Zeichen
     string.gsub!(/\$/,"\\$")
-    string.gsub!(/&/,"\\&")
+    string.gsub!(/_/,"\\_")
+    string.gsub!(/\[/,"$\\lbrack$")
+    string.gsub!(/\]/,"$\\rbrack$")
+    string.gsub!(/</,"\\textless")
+    string.gsub!(/>/,"\\textgreater")
+    string.gsub!(/\302\247/,"\\S") #Das §-Zeichen
+    string.gsub!(/&/, "AMPERSAND") #Das & Zeichen nimmt z. T. noch einen wert an, je nachdem wie es escaped ist, gsub(/MATCHIRGENDWAS/, "\\&") gibt nicht \& im puts sondern MATCHIRGENDWAS. Die Escapes werden irgendwie aufgefressen.
     string.gsub!(/#/,"\\#")
     string.gsub!(/\{/,"\\{")
     string.gsub!(/\}/,"\\}")
     string.gsub!(/%/,"\\%")
     string.gsub!(/~/,"\\textasciitilde")
     string.gsub!(/"/,"\"\'") #Das Anführungszeichen wird durch ein Anführungszeichen und einen Apostroph ersetzt
-    string.gsub!(/\342\202\254/,"\\texteuro") #Das Euroyeichen
+    string.gsub!(/\342\202\254/,"\\texteuro") #Das Eurozeichen
+    debug string.inspect
     return string
   end
 end
