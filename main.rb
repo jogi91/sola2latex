@@ -65,7 +65,7 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
       stack(:width => 800, :margin_left => 40, :margin_right => 40) do
         title "Blockziele"
         para "Hier werden die Ziele eingegeben. Bitte immer nur ein Ziel in die Textbox kopieren und den hinzufügen-Button drücken. Wenn man das letzte Ziel hinzugefügt hat, kann der Vorgang durch klicken auf Fertig abgeschlossen werden."
-        ziel = edit_box(:width => 1.0, :height => 200)
+        ziel = edit_box(:width => 1.0, :height => 300)
         keypress do |k|
           debug ziel.inspect
           if k == :alt_v
@@ -137,7 +137,7 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
       stack(:width => 800, :margin_left => 40, :margin_right => 40) do
         title "Material"
         para "Bitte hier das Material durch Kommas getrennt aufführen"
-        material = edit_box(:width => 1.0)
+        material = edit_box(:width => 1.0, :height => 300)
         keypress do |k|
           if k == :alt_v
             material.text += self.clipboard
@@ -243,4 +243,5 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
 
 
   end
+  #Hauptflow fertig
 end

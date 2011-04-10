@@ -9,7 +9,7 @@ Shoes herunterladen und installieren, shoes öffnen, Open an App auswählen und 
 
 LINUX:
 
-Diese Anleitung stellt keinen Anspruch auf Vollständigkeit. Dies ist der Weg, den ich mir zusammengegoogelt habe und der auf meinem System (Ubuntu 10.04 auf dem 2.6.32-30-generic Kernel) funktioniert. Sollte es nicht funktionieren, sind die Fehlermeldungen zu lesen und mit googles Hilfe wird es sicher möglich sein, shoes zum laufen zu bekommen. Ausganspunkt war für mich folgende Webseite: https://github.com/shoes/shoes/wiki/Building-Shoes-on-Linux
+Diese Anleitung stellt keinen Anspruch auf Vollständigkeit. Dies ist der Weg, den ich mir zusammengegoogelt habe und der auf meinem System (Ubuntu 10.04 auf dem 2.6.32-30-generic Kernel) funktioniert. Sollte es nicht funktionieren, sind die Fehlermeldungen zu lesen und mit Googles Hilfe wird es sicher möglich sein, shoes zum laufen zu bekommen. Ausganspunkt war für mich folgende Webseite: https://github.com/shoes/shoes/wiki/Building-Shoes-on-Linux
 
 Im Terminal:
 $ ruby -v
@@ -39,10 +39,12 @@ $ sudo ruby extconf.rb
 $ sudo make
 $ sudo make install
 
-Jetzt in beliebigem Ordner:
+Jetzt in beliebigem Ordner Shoes installieren:
 $ git clone git://github.com/shoes/shoes.git 
 $ cd shoes
 $ sudo gem install bundler
 $ sudo rake
 
-Danach sollte sich shoes im Verzeichnis dist/ befinden. Es kann nun geöffnet werden und mit "Open an App" kann nun main.rb aus dem ordner sola2latex geöffnet werden.
+Danach sollte sich shoes im Verzeichnis dist/ befinden. Es kann nun geöffnet werden und mit "Open an App" kann nun main.rb aus dem Ordner sola2latex geöffnet werden. Falls main.rb nicht vorhanden ist, kann es über git geklont werden:
+$ git clone git://github.com/jogi91/sola2latex.git
+ 
