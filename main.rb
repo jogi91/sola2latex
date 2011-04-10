@@ -82,11 +82,13 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
             end
           }
           i = button("Fertig"){
-            if ziele.length != 0
+            if ziel.text != ""
+              alert("Bitte das aktuelle Ziel noch hinzufügen oder die Inhalte der Textbox löschen")
+            elsif ziele.length == 0
+              alert("Bitte mindestens ein Ziel eingeben")
+            else
               datenhandler.ziele = ziele
               @zielestack.remove
-            else
-              alert("Bitte mindestens ein Ziel eingeben")
             end
           }
         end
@@ -99,8 +101,8 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
       sicherheiten = Array.new
       stack(:width => 800, :margin_left => 40, :margin_right => 40) do
         title "Sicherheitskonzept"
-        para "Hier wird das Sicherheitskonzept eingegeben, etc. blabla."
-        sicherheit = edit_box(:width => 1.0)
+        para "Hier wird das Sicherheitskonzept eingegeben. Man geht hier genau so wie beim Eingeben der Ziele vor. Jeder Teil des Sicherheitskonzepts, den man hinzufügt, wird zu einem Listenpunkt"
+        sicherheit = edit_box(:width => 1.0, :height => 300)
         keypress do |k|
           if k == :alt_v
             sicherheit.text += self.clipboard
@@ -108,13 +110,22 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
         end
         flow do
           button("hinzufügen"){
-            sicherheiten.push sicherheit.text
-            sicherheit.text = ""
+            if sicherheit.text != ""
+              sicherheiten.push sicherheit.text
+              sicherheit.text = ""
+            else
+              alert("Bitte zuerst einen Text ins Textfeld eingeben.")
+            end
           }
           i = button("Fertig"){
-            debug sicherheiten.inspect
-            datenhandler.sicherheit = sicherheiten
-            @sicherheitskonzeptstack.remove
+            if sicherheit.text != ""
+              alert("Bitte zuerst den aktuellen Punkt noch hinzufügen")
+            elsif sicherheiten.length == 0
+              alert("Es wurde nichts eingegeben. Macht euch Gedanken über die Sicherheit. Ihr seid doch schliesslich verantwortungsbewusste Jubla-Leiter")
+            else
+              datenhandler.sicherheit = sicherheiten
+              @sicherheitskonzeptstack.remove
+            end
           }
         end
       end
@@ -133,8 +144,13 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
           end
         end
         i = button("Fertig"){
-          datenhandler.material = material.text
-          @materialstack.remove
+          if material.text == ""
+            sicher = confirm("Wird wirklich kein Material gebraucht?")
+          end
+          if material.text != "" or sicher == true
+            datenhandler.material = material.text
+            @materialstack.remove
+          end
         }
       end
     end
