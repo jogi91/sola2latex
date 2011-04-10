@@ -10,14 +10,26 @@ class Kopierer
   end  
   
   def speichern
-    savefile = ask_save_file
-    savefile = savefile+".tex"
+    begin
+      savefile = ask_save_file
+      savefile = savefile+".tex"
+      debug savefile.inspect
+      if File.exists? savefile
+        debug "File existiert"
+        ueberschreiben = confirm "Die Datei #{savefile} existiert bereits. Soll sie wirklich ueberschrieben werden?"
+        if ueberschreiben == false
+          raise "nicht ueberschreiben"
+        end
+      end
+    rescue
+      retry
+    end
     output = File.open(savefile, 'w')
     outputstring = zusammensetzen
     output.puts outputstring
     output.close
     debug "Output Closed"
-    exit
+    #exit
   end
   
   
