@@ -28,7 +28,7 @@ class Kopierer
     output.puts outputstring
     output.close
     debug "Output Closed"
-    #exit
+    exit
   end
   
   
