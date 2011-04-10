@@ -57,13 +57,15 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
     end
     #Hinweis fertig
     
+    
+    
     #Ziele-Fenster
     @zielestack = stack(:title => "Blockziele", :height => 800, :width => 800) do
       ziele = Array.new
       stack(:width => 800, :margin_left => 40, :margin_right => 40) do
         title "Blockziele"
-        para "Hier werden die Ziele eingegeben. Bitte immer nur ein Ziel in die Textbox kopieren und den hinzufügen-Button drücken. Wenn man das letzte Ziel eingegeben hat, kann der Vorgang durch klicken auf Fertig abgeschlossen werden."
-        ziel = edit_box(:width => 1.0)
+        para "Hier werden die Ziele eingegeben. Bitte immer nur ein Ziel in die Textbox kopieren und den hinzufügen-Button drücken. Wenn man das letzte Ziel hinzugefügt hat, kann der Vorgang durch klicken auf Fertig abgeschlossen werden."
+        ziel = edit_box(:width => 1.0, :height => 200)
         keypress do |k|
           debug ziel.inspect
           if k == :alt_v
@@ -72,13 +74,20 @@ Shoes.app(:title => "Solablock2LaTeX", :width => 800, :height => 800, :resizable
         end
         flow do
           button("hinzufügen"){
-            ziele.push ziel.text
-            ziel.text = ""
+            if ziel.text != ""
+              ziele.push ziel.text
+              ziel.text = ""
+            else
+              alert("Bitte zuerst einen Text ins Textfeld eingeben.")
+            end
           }
           i = button("Fertig"){
-            debug ziele.inspect
-            datenhandler.ziele = ziele
-            @zielestack.remove
+            if ziele.length != 0
+              datenhandler.ziele = ziele
+              @zielestack.remove
+            else
+              alert("Bitte mindestens ein Ziel eingeben")
+            end
           }
         end
       end

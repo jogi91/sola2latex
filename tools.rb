@@ -24,6 +24,8 @@ module Tools
       end
     end
   end
+  
+  
   # Blockdaten anzeigen
   def display_data(kopierer)
     dialog do
