@@ -81,6 +81,7 @@ class Kopierer
       einstiegsstring += string
     end
     einstiegsstring.chomp!("\\\\\\ \n\n")
+    einstiegsstring = parse_lists(einstiegsstring)
     @vorlage.gsub!(/EINSTIEG &/, einstiegsstring)
     
     #Hauptteil einfüllen

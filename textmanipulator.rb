@@ -20,7 +20,40 @@ module Textmanipulator
     return string
   end
   
-  #Erstellt aus einem String Listen.
-  def parse_lists
+  
+  #Erstellt aus einem String Listen. Vorerst sollen noch keine Unterpunkte unterstützt werden
+  def parse_lists(string)
+    debug "parse_lists aufgerufen"
+    zeilen = Array.new
+    geparster_string = String.new
+    zeilen = string.lines.to_a #Jede Zeile wird einzeln untersucht
+    liste = false
+    zeilen.each do |zeile|
+      debug zeile.inspect
+      if liste == false and zeile.start_with?("*")
+        liste = true
+        geparster_string = geparster_string + "\\begin{compactitem}\n"
+        geparster_string = geparster_string + make_listpoint(zeile)
+      elsif liste == true and zeile.start_with?("*")
+        geparster_string = geparster_string + make_listpoint(zeile)
+      elsif liste == true and not zeile.start_with?("*")
+        liste = false
+        geparster_string = geparster_string + "\\end{compactitem}\n" + zeile
+      else
+        geparster_string = geparster_string + zeile
+      end
+    end
+    #wenn die Letzte Zeile noch ein Tabellenpunkt war, wird er jetzt geschlossen
+    if liste == true
+      geparster_string = geparster_string + "\\end{compactitem}\n"
+    end
+    
+    return geparster_string
+  end
+  
+  #Macht aus einem String einen Listenpunkt
+  def make_listpoint(string)
+    listenpunkt = "\\item " + string.slice(1..-1).lstrip #LaTeX-Kommando bauen, Stern und Whitespaces am Anfang entfernen
+    return listenpunkt
   end
 end
