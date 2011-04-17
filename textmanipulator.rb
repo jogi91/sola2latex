@@ -20,6 +20,10 @@ module Textmanipulator
     return string
   end
   
+  #soll den Text und die Kommentare ordentlich in Zwei Spalten Aufteilen, und dabei Listen u. ä. berücksichtigen
+  def balance_comments
+    
+  end
   
   #Erstellt aus einem String Listen. Vorerst sollen noch keine Unterpunkte unterstützt werden
   def parse_lists(string)
