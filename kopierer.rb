@@ -117,7 +117,7 @@ class Kopierer
       ausstiegsstring += string
     end
     ausstiegsstring.chomp!("\\\\\\ \n\n")
-    @vorlage.gsub!(/AUSSTIEG &/, einstiegsstring)
+    @vorlage.gsub!(/AUSSTIEG &/, ausstiegsstring)
     @vorlage.gsub!(/AMPERSAND/, "\\\\&") #Siehe Methode escape_latex
     return @vorlage
   end
