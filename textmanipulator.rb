@@ -21,8 +21,39 @@ module Textmanipulator
   end
   
   #soll den Text und die Kommentare ordentlich in Zwei Spalten Aufteilen, und dabei Listen u. ä. berücksichtigen
-  def balance_comments
+  def balance_comments(text, kommentar)
+    clean_text = escape_latex(text)
+    clean_kommentar = escape_latex(kommentar)
+
+    #lange Kommentare sollen gesplittet werden.
+    kommentarteile_unbearbeitet = clean_kommentar.lines.to_a
+    kommentarteile = Array.new
+    kommentarzellen = 0
+    for counter in 0..kommentarteile_unbearbeitet.length
+      kommentarteile.push(kommentarteile_unbearbeitet[counter])
+      #Alle 10 Zeilen  und am Ende eine neue Tabellenzelle Anfangen
+      if counter % 10 == 0 or counter == kommentarteile_unbearbeitet.length
+        kommentarteile.push("\\\\\\ \n\n") #Doublebackslash
+      end
+    end
     
+    #text splitten
+    text_unbearbetet = clean_text.lines.to_a
+    textteile = Array.new
+    for counter in 0..text_unbearbetet.length
+      textteile.push(text_unbearbetet[counter])
+      if counter % 10 == 0 or counter == text_unbearbetet.length
+        #Alle 10 Zeilen Zelle abschliessen
+        textteile.push(" & ")
+        #Wenn es keine Kommentare mehr anzufügen gibt, leere kommentarzelle hinzufügen
+        if kommentarteile.length == 0
+          textteile.push("\\\\\\ \n\n")
+        #sonst die ersten 11 elemente vom Kommentararray anfügen und löschen
+        else
+          textteile.concat(kommentarteile.slice!(0..11))
+        end
+      end
+    end
   end
   
   #Erstellt aus einem String Listen. Vorerst sollen noch keine Unterpunkte unterstützt werden
