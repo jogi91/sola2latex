@@ -1,3 +1,7 @@
+require "basisdaten"
+include Basisdaten
+
+
 puts "---- Solablock Kommandozeileninterface ----\n\n"
 
 
@@ -12,5 +16,5 @@ datei = File.open("latex/vorlage.tex", "r")
 vorlage = datei.read
 datei.close
 
-
-
+basisdaten = Basisdaten.basisdatenabfrage
+ziele = Basisdaten.zielabfrage
