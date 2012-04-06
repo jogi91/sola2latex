@@ -20,7 +20,7 @@ module Listparser
 					result += words.join(" ") + "\n"
 					next
 				else
-					words = words + ["\n\\end{compactitem}"]
+					words = ["\\end{compactitem}\n"] +words 
 					result += words.join(" ") + "\n"
 					mode = :nolist
 				end

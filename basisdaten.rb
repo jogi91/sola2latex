@@ -7,7 +7,8 @@ module Basisdaten
 		basisdaten.push "BLOCKNAME"
 
 		puts "Was ist die J+S-Nummer (LA/LS Nummer des Tages.Blocknummer)?\nBeispiel: LA 3.2 bezeichnet die 2. Lageraktivität am 3. Tag"
-		basisdaten.push gets.chomp
+		blocknummer = gets.chomp
+		basisdaten.push blocknummer
 		basisdaten.push "J+S-NUMMER"
 
 		puts "Wer leitet den Block?"
@@ -26,7 +27,7 @@ module Basisdaten
 		basisdaten.push gets.chomp
 		basisdaten.push "DATUM"
 
-		puts "Wann findet der Block statt?"
+		puts "Von wann bis wann findet der Block statt?"
 		basisdaten.push gets.chomp
 		basisdaten.push "ZEIT"
 
@@ -34,7 +35,7 @@ module Basisdaten
 		basisdaten.push gets.chomp
 		basisdaten.push "MATERIAL"
 
-		return basisdaten
+		return basisdaten, blocknummer
 	end
 
 	#Fragt den Anwender nach zielen.
@@ -70,7 +71,7 @@ module Basisdaten
 	end
 
 	def fillTemplate template
-		basisdaten = basisdatenabfrage
+		basisdaten, blocknummer = basisdatenabfrage
 		ziele = zielabfrage
 		siko = sikoabfrage
 		(basisdaten.length/2).times do
@@ -81,6 +82,6 @@ module Basisdaten
 		template.gsub!(/ZIELE/, ziele)
 		template.gsub!(/SICHERHEITSKONZEPT/, siko)
 
-		return template
+		return template, blocknummer
 	end
 end

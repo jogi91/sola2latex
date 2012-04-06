@@ -21,15 +21,15 @@ datei.close
 #ziele = Basisdaten.zielabfrage
 #siko = Basisdaten.sikoabfrage
 
-result = fillTemplate vorlage
+result, blocknummer = fillTemplate vorlage
 
 displayDisclaimer
 result.gsub!(/EINSTIEG/, getsBeschrieb("Einstieg")) 
 result.gsub!(/HAUPTTEIL/, getsBeschrieb("Hauptteil")) 
 result.gsub!(/AUSSTIEG/, getsBeschrieb("Ausstieg")) 
 
-puts "save to out.tex"
-out =File.open("out.tex", "w")
+puts "save to output/"+blocknummer.gsub(/\s+/,"")+".tex"
+out =File.open("output/"+blocknummer.gsub(/\s+/,"")+".tex", "w")
 out << result
 out.close
 
