@@ -1,6 +1,7 @@
 require "basisdaten"
 include Basisdaten
-
+require "blockbeschrieb"
+include	Blockbeschrieb
 
 puts "---- Solablock Kommandozeileninterface ----\n\n"
 
@@ -20,4 +21,16 @@ datei.close
 #ziele = Basisdaten.zielabfrage
 #siko = Basisdaten.sikoabfrage
 
-puts Basisdaten.fillTemplate vorlage
+result = fillTemplate vorlage
+
+displayDisclaimer
+result.gsub!(/EINSTIEG/, getsBeschrieb("Einstieg")) 
+result.gsub!(/HAUPTTEIL/, getsBeschrieb("Hauptteil")) 
+result.gsub!(/AUSSTIEG/, getsBeschrieb("Ausstieg")) 
+
+puts "save to out.tex"
+out =File.open("out.tex", "w")
+out << result
+out.close
+
+`./doublebackslash.sh`

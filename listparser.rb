@@ -1,7 +1,6 @@
 #Soll durch * definierte listen durch entsprechende LaTeX-Kommandos ersetzen
-#module Listparser
-	beispielstring ="asdfsadfsadf\nasdf\nasdf\n\n* Ein Punkt\n* Noch ein Punkt\n\nasdf\nasdf\nasdf\nein Text ohne * Liste\n" 
-
+module Listparser
+	#Erstellt genau die erwähnten Listen, aber nicht verschachtelt
 	def parse string
 		result = String.new
 		string.gsub!(/^\* /, "\\item ") #* am Anfang einer Zeile, gefolgt vom LEerzeichen wird durch den LaTeXbefehl \item ersetzt
@@ -31,5 +30,4 @@
 		return result
 	end
 
-	puts parse beispielstring
-#end
+end
