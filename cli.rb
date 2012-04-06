@@ -16,5 +16,8 @@ datei = File.open("latex/vorlage.tex", "r")
 vorlage = datei.read
 datei.close
 
-basisdaten = Basisdaten.basisdatenabfrage
-ziele = Basisdaten.zielabfrage
+#basisdaten = Basisdaten.basisdatenabfrage
+#ziele = Basisdaten.zielabfrage
+#siko = Basisdaten.sikoabfrage
+
+puts Basisdaten.fillTemplate vorlage
